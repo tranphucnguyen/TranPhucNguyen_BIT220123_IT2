@@ -1,24 +1,40 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
 const SignInScreen = ({ navigation }) => {
-    const handleSignIn = () => {
-        // Xử lý logic đăng nhập ở đây
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-        // Sau khi đăng nhập thành công, điều hướng đến màn hình 'Hello'
-        navigation.navigate('Hello');
+    const handleSignIn = () => {
+        // Perform validation or authentication logic here
+        // For simplicity, I'll check if email and password are not empty
+        if (email && password) {
+            // Navigate to HelloScreen on successful sign in
+            navigation.navigate('HelloScreen');
+        } else {
+            // Handle invalid credentials or show error message
+            alert('Please enter valid email and password');
+        }
     };
 
     return (
         <View style={styles.container}>
-            <Image
-                source={{ uri: 'https://i.pinimg.com/236x/fb/7b/b6/fb7bb621adb8f3995090123b5a486019.jpg' }}
-                style={styles.avatar}
+            <Text style={styles.title}>Sign In</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
             />
-            <Text style={styles.title}>Scan, Pay & Enjoy</Text>
-            <Text style={styles.description}>Scan products you want to buy at your favorite store and pay by your phone & enjoy happy, friend shopping!</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Password"
+                secureTextEntry
+                value={password}
+                onChangeText={setPassword}
+            />
             <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-                <Text style={styles.buttonText}>Next</Text>
+                <Text style={styles.buttonText}>Sign In</Text>
             </TouchableOpacity>
         </View>
     );
@@ -29,33 +45,33 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FFC0CB', // Pink background color
-    },
-    avatar: {
-        width: 150,
-        height: 150,
-        borderRadius: 75, // Rounded corners
-        marginBottom: 20,
+        backgroundColor: '#fff',
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    description: {
-        textAlign: 'center',
-        paddingHorizontal: 20,
         marginBottom: 20,
     },
-    button: {
-        backgroundColor: '#FFB6C1', // Light pink button color
-        paddingHorizontal: 20,
-        paddingVertical: 10,
+    input: {
+        width: '80%',
+        height: 40,
+        borderColor: '#ccc',
+        borderWidth: 1,
         borderRadius: 5,
+        marginBottom: 10,
+        paddingHorizontal: 10,
+    },
+    button: {
+        backgroundColor: '#FFB6C1',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        marginTop: 20,
     },
     buttonText: {
+        color: '#FFF',
         fontSize: 18,
-        color: '#FFF', // White text color
+        fontWeight: 'bold',
     },
 });
 

@@ -2,8 +2,9 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import SignInScreen from './screens/SignInScreen'; // Đây là màn hình đăng nhập
-import HelloScreen from './screens/HelloScreen'; // Đây là màn hình chào
+import SignInScreen from './screens/SignInScreen'; // Màn hình đăng nhập
+import HelloScreen from './screens/HelloScreen'; // Màn hình chào
+import ScanScreen from './screens/ScanScreen'; // Màn hình quét
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faRing, faPrint, faClock, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +12,7 @@ import { faHome, faRing, faPrint, faClock, faShoppingCart } from '@fortawesome/f
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const BottomTabs = ({ navigation }) => {
+const BottomTabs = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -62,13 +63,11 @@ const BottomTabs = ({ navigation }) => {
       />
       <Tab.Screen
         name="Print"
-        component={SignInScreen}
+        component={ScanScreen}
         listeners={({ navigation }) => ({
           tabPress: (event) => {
-            // Prevent default action
             event.preventDefault();
-            // Navigate to SignInScreen
-            navigation.navigate('SignIn');
+            navigation.navigate('ScanScreen');
           },
         })}
         options={{
@@ -105,9 +104,10 @@ const BottomTabs = ({ navigation }) => {
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Hello">
-        <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Hello" component={BottomTabs} options={{ headerShown: false }} />
+      <Stack.Navigator initialRouteName="SignInScreen">
+        <Stack.Screen name="SignInScreen" component={SignInScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="HelloScreen" component={BottomTabs} options={{ headerShown: false }} />
+        <Stack.Screen name="ScanScreen" component={ScanScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
