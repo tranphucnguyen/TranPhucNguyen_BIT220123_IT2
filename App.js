@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SignInScreen from './screens/SignInScreen'; // Màn hình đăng nhập
 import HelloScreen from './screens/HelloScreen'; // Màn hình chào
 import ScanScreen from './screens/ScanScreen'; // Màn hình quét
-
+import CartScreen from './screens/CartScreen'; // Màn hình giỏ hàng
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faRing, faPrint, faClock, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
@@ -90,6 +90,12 @@ const BottomTabs = () => {
       <Tab.Screen
         name="Cart"
         component={HelloScreen}
+        listeners={({ navigation }) => ({
+          tabPress: (event) => {
+            event.preventDefault();
+            navigation.navigate('CartScreen');
+          },
+        })}
         options={{
           tabBarLabel: 'Giỏ hàng',
           tabBarIcon: ({ color, size }) => (
@@ -108,6 +114,7 @@ const App = () => {
         <Stack.Screen name="SignInScreen" component={SignInScreen} options={{ headerShown: false }} />
         <Stack.Screen name="HelloScreen" component={BottomTabs} options={{ headerShown: false }} />
         <Stack.Screen name="ScanScreen" component={ScanScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="CartScreen" component={CartScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
